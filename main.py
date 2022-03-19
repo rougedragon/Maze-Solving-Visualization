@@ -1,6 +1,7 @@
 import pygame
 import const
 import numpy as np
+import AStarSolver
 
 window = pygame.display.set_mode((const.WINDOW_RESOLUTION,const.WINDOW_RESOLUTION))
 pygame.display.set_caption("Maze Solver")
@@ -8,14 +9,13 @@ grid = np.zeros((const.TILE_NB,const.TILE_NB))
 start = (None,None)
 end = (None,None)
 
-def draw_window(window, grid):
+def draw_window(window, grid, start, end):
     window.fill(const.BACKGROUND_COLOR)
-    drawGrid(window, grid)
+    drawGrid(window, grid, start, end)
 
     pygame.display.update()
 
-def drawGrid(window, grid):
-    global start, end
+def drawGrid(window, grid, start, end):
     blockSize = const.WINDOW_RESOLUTION/const.TILE_NB
     for x in range(len(grid)):
         row = grid[x]
@@ -31,6 +31,12 @@ def drawGrid(window, grid):
                 pygame.draw.rect(window, color, rect, 0)
             if tile == 1:
                 pygame.draw.rect(window, const.WALL_COLOR, rect, 0)
+            if tile == 2:
+                pygame.draw.rect(window, const.OPEN_SET_COLOR, rect, 0)
+            if tile == 3:
+                pygame.draw.rect(window, const.CLOSED_SET_COLOR, rect, 0)
+            if tile == 4:
+                pygame.draw.rect(window, const.PATH_COLOR, rect, 0)
 
             # Borders
             pygame.draw.rect(window, const.WALL_COLOR, rect, 1)
@@ -73,9 +79,11 @@ def main():
         if key_pressed[pygame.K_f]:
             grid[x][y]
             end = (x,y)
-            
 
-        draw_window(window, grid)
+        if key_pressed[pygame.K_SPACE]:
+            AStarSolver.solve(start,end,grid,window,clock)
+        
+        draw_window(window, grid, start, end)
         
         
 

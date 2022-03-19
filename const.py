@@ -1,7 +1,11 @@
 WINDOW_RESOLUTION = 1000 # Make a x by x window
-TILE_NB = 10 # Make a x by x grid
-FPS = 60 # -1 for unlimitied
+TILE_NB = 100 # Make a x by x grid
+FPS = -1 # -1 for unlimitied
+SOLVING_FPS = -1 # -1 for unlimitied
 BACKGROUND_COLOR = (200,200,200)
 WALL_COLOR = (0,0,0)
-START_COLOR = (0,255,0)
-END_COLOR = (255,0,0)
+START_COLOR = (0,200,0)
+END_COLOR = (200,0,0)
+OPEN_SET_COLOR = (0,255,0)
+CLOSED_SET_COLOR = (255,0,0)
+PATH_COLOR = (0,0,255)
